@@ -51,7 +51,7 @@ bool TutorialEditor::open (void* ptr)
 	//-- first we create the frame with a size of 300, 300 and set the background to white
 	CRect frameSize (0, 0, 300, 300);
 	CFrame* newFrame = new CFrame (frameSize, ptr, this);
-	newFrame->setBackgroundColor (kWhiteCColor);
+	newFrame->setBackgroundColor (kBlackCColor);
 
 	//-- load some bitmaps we need
 	CBitmap* background = new CBitmap ("KnobBackground.png");

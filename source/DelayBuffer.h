@@ -28,6 +28,7 @@ public:
 	float			advance				( float value );
 					DelayBuffer			( void );
 	virtual			~DelayBuffer		( void );
+	int				getBufferSize		();
 	void			setDelay			( int delay );
 
 };

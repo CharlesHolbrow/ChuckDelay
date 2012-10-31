@@ -22,7 +22,7 @@ void DelayBuffer::clearBuffer ()
 float DelayBuffer::advance ( float value )
 {
 	mBuffer [ mWritePosition++ ] = value;
-	float x = mBuffer [ mReadPosition++ ];
+	float delayedSample = mBuffer [ mReadPosition++ ];
 
 	if ( mWritePosition >= bufferSize )
 		mWritePosition = 0;
@@ -30,7 +30,7 @@ float DelayBuffer::advance ( float value )
 	if ( mReadPosition >= bufferSize )
 		mReadPosition = 0;
 
-	return x;
+	return delayedSample;
 }
 
 //----------------------------------------------------------------//
@@ -50,6 +50,12 @@ DelayBuffer::~DelayBuffer(void)
 }
 
 //----------------------------------------------------------------//
+int DelayBuffer::getBufferSize()
+{
+	return bufferSize;
+}
+
+//----------------------------------------------------------------//
 void DelayBuffer::setDelay ( int delay )
 {
 	if ( delay < 0 || delay >= bufferSize )
@@ -57,6 +63,5 @@ void DelayBuffer::setDelay ( int delay )
 
 	mDelay = delay;
 	mReadPosition = ( bufferSize + mWritePosition - delay ) % bufferSize;
-
 
 }

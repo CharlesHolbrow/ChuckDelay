@@ -76,7 +76,7 @@ bool TutorialEditor::open (void* ptr)
 	//-- first we create the frame with a size of 300, 300 and set the background to white
 	CRect frameSize (0, 0, 300, 300);
 	CFrame* newFrame = new CFrame (frameSize, ptr, this);
-	newFrame->setBackgroundColor (kWhiteCColor);
+	newFrame->setBackgroundColor (kBlackCColor);
 
 	//-- load some bitmaps we need
 	CBitmap* background = new CBitmap ("KnobBackground.png");
@@ -93,6 +93,11 @@ bool TutorialEditor::open (void* ptr)
 	CKnob* knob2 = new MyKnob (r, this, kRightVolumeParameter, background, handle, handleHighlight);
 	newFrame->addView (knob2);
 
+	//-- creating another knob,
+	r.offset (background->getWidth () + 5, 0);
+	CKnob* knob3 = new MyKnob (r, this, kDelayTimeParameter, background, handle, handleHighlight);
+	newFrame->addView (knob3);
+
 	//-- forget the bitmaps
 	background->forget ();
 	handle->forget ();
@@ -100,6 +105,7 @@ bool TutorialEditor::open (void* ptr)
 	//-- remember our controls so that we can sync them with the state of the effect
 	controls[kLeftVolumeParameter] = knob1;
 	controls[kRightVolumeParameter] = knob2;
+	controls[kDelayTimeParameter] = knob3;
 
 	//-- set the member frame to our frame
 	frame = newFrame;
@@ -125,6 +131,9 @@ void TutorialEditor::close ()
 void TutorialEditor::valueChanged (CControl* pControl)
 {
 	//-- valueChanged is called whenever the user changes one of the controls in the User Interface (UI)
+
+	//-- setParameterAutomated notifies the host that the parameter has been changed. 
+	//-- this allows the host to record automation
 	effect->setParameterAutomated (pControl->getTag (), pControl->getValue ());
 }
 
@@ -132,12 +141,15 @@ void TutorialEditor::valueChanged (CControl* pControl)
 void TutorialEditor::setParameter (VstInt32 index, float value)
 {
 	//-- setParameter is called when the host automates one of the effects parameter.
-	//-- The UI should reflect this state.
+
+	//-- Update the UI accordingly to respond to host automation. 
 	if (frame && index < kNumParameters)
 	{
-		controls[index]->setValue (value);
+		// update the ui (Does not trigger callbacks)
+		controls[index]->setValue (value); 
 	}
 }
+
 
 //-----------------------------------------------------------------------------------
 //-- MyKnob is just like CKnob except that it displays a different handle

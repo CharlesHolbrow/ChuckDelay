@@ -48,8 +48,10 @@ buffer()
 	setUniqueID (CCONST('G', 'U', 'I', '0'));
 	setNumInputs (2);
 	setNumOutputs (2);
+
 	parameters[kLeftVolumeParameter] = 1.f;
 	parameters[kRightVolumeParameter] = 1.f;
+	parameters[kDelayTimeParameter] = 1.f;
 
 	extern AEffGUIEditor* createEditor (AudioEffectX*);
 	setEditor (createEditor (this));
@@ -62,6 +64,7 @@ void TutorialVST2Effect::setParameter (VstInt32 index, float value)
 	{
 		parameters[index] = value;
 		if (editor)
+			// cast editor to AEFFGUIEditor
 			((AEffGUIEditor*)editor)->setParameter (index, value);
 	}
 }
@@ -81,6 +84,10 @@ void TutorialVST2Effect::processReplacing (float** inputs, float** outputs, VstI
 	{
 		float delayedSample = buffer.advance ( 
 			inputs[0][i] * parameters[kLeftVolumeParameter] );
+
+		buffer.setDelay( 
+			(int)( (float)buffer.getBufferSize() * (float)parameters[kDelayTimeParameter] ) 
+		);
 
 		outputs[0][i] = delayedSample;
 		outputs[1][i] = inputs[1][i] * parameters[kRightVolumeParameter];
