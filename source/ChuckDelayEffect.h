@@ -31,18 +31,18 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //-----------------------------------------------------------------------------
 
-#ifndef __TutorialVST2Effect__
-#define __TutorialVST2Effect__
+#ifndef __ChuckDelayEffect__
+#define __ChuckDelayEffect__
 
 #include "../public.sdk/source/vst2.x/audioeffectx.h"
 
 #include "Parameters.h"
 #include "DelayBuffer.h"
 
-class TutorialVST2Effect : public AudioEffectX
+class ChuckDelayEffect : public AudioEffectX
 {
 public:
-	TutorialVST2Effect (audioMasterCallback audioMaster);
+	ChuckDelayEffect (audioMasterCallback audioMaster);
 
 	void processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames);
 
@@ -56,4 +56,4 @@ private:
 	DelayBuffer buffer;
 };
 
-#endif // __TutorialVST2Effect__
+#endif // __ChuckDelayEffect__

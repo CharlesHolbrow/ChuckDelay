@@ -163,8 +163,8 @@
     <ClCompile Include="..\public.sdk\source\vst2.x\audioeffectx.cpp" />
     <ClCompile Include="..\public.sdk\source\vst2.x\vstplugmain.cpp" />
     <ClCompile Include="..\source\ChuckDelayEditor.cpp" />
+    <ClCompile Include="..\source\ChuckDelayEffect.cpp" />
     <ClCompile Include="..\source\DelayBuffer.cpp" />
-    <ClCompile Include="..\source\TutorialVST2Effect.cpp" />
     <ClCompile Include="..\vstgui\aeffguieditor.cpp" />
     <ClCompile Include="..\vstgui\vstcontrols.cpp" />
     <ClCompile Include="..\vstgui\vstgui.cpp" />
@@ -177,9 +177,9 @@
     <ClInclude Include="..\public.sdk\source\vst2.x\audioeffect.h" />
     <ClInclude Include="..\public.sdk\source\vst2.x\audioeffectx.h" />
     <ClInclude Include="..\source\ChuckDelayEditor.h" />
+    <ClInclude Include="..\source\ChuckDelayEffect.h" />
     <ClInclude Include="..\source\DelayBuffer.h" />
     <ClInclude Include="..\source\Parameters.h" />
-    <ClInclude Include="..\source\TutorialVST2Effect.h" />
     <ClInclude Include="..\vstgui\aeffguieditor.h" />
     <ClInclude Include="..\vstgui\vstcontrols.h" />
     <ClInclude Include="..\vstgui\vstgui.h" />

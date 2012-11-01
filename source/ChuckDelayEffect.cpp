@@ -31,17 +31,17 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //-----------------------------------------------------------------------------
 
-#include "TutorialVST2Effect.h"
+#include "ChuckDelayEffect.h"
 #include "../vstgui/aeffguieditor.h"
 
 //------------------------------------------------------------------------------------
 AudioEffect* createEffectInstance (audioMasterCallback audioMaster)
 {
-	return new TutorialVST2Effect (audioMaster);
+	return new ChuckDelayEffect (audioMaster);
 }
 
 //------------------------------------------------------------------------------------
-TutorialVST2Effect::TutorialVST2Effect (audioMasterCallback audioMaster)
+ChuckDelayEffect::ChuckDelayEffect (audioMasterCallback audioMaster)
 : AudioEffectX (audioMaster, 1, kNumParameters),
 buffer()
 {
@@ -58,7 +58,7 @@ buffer()
 }
 
 //------------------------------------------------------------------------------------
-void TutorialVST2Effect::setParameter (VstInt32 index, float value)
+void ChuckDelayEffect::setParameter (VstInt32 index, float value)
 {
 	if (index < kNumParameters)
 	{
@@ -70,7 +70,7 @@ void TutorialVST2Effect::setParameter (VstInt32 index, float value)
 }
 
 //------------------------------------------------------------------------------------
-float TutorialVST2Effect::getParameter (VstInt32 index)
+float ChuckDelayEffect::getParameter (VstInt32 index)
 {
 	if (index < kNumParameters)
 		return parameters[index];
@@ -78,7 +78,7 @@ float TutorialVST2Effect::getParameter (VstInt32 index)
 }
 
 //------------------------------------------------------------------------------------
-void TutorialVST2Effect::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
+void ChuckDelayEffect::processReplacing (float** inputs, float** outputs, VstInt32 sampleFrames)
 {
 	for (VstInt32 i = 0; i < sampleFrames; i++)
 	{
