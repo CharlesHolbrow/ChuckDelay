@@ -37,7 +37,7 @@
 //-- over the control or if the knob is being tracked.
 //-----------------------------------------------------------------------------------
 
-#include "TutorialEditor.h"
+#include "ChuckDelayEditor.h"
 
 //-----------------------------------------------------------------------------------
 //-- This is the custom CKnob
@@ -61,17 +61,17 @@ protected:
 //-----------------------------------------------------------------------------------
 AEffGUIEditor* createEditor (AudioEffectX* effect)
 {
-	return new TutorialEditor (effect);
+	return new ChuckDelayEditor (effect);
 }
 
 //-----------------------------------------------------------------------------------
-TutorialEditor::TutorialEditor (void* ptr)
+ChuckDelayEditor::ChuckDelayEditor (void* ptr)
 : AEffGUIEditor (ptr)
 {
 }
 
 //-----------------------------------------------------------------------------------
-bool TutorialEditor::open (void* ptr)
+bool ChuckDelayEditor::open (void* ptr)
 {
 	//-- first we create the frame with a size of 300, 300 and set the background to white
 	CRect frameSize (0, 0, 300, 300);
@@ -117,7 +117,7 @@ bool TutorialEditor::open (void* ptr)
 }
 
 //-----------------------------------------------------------------------------------
-void TutorialEditor::close ()
+void ChuckDelayEditor::close ()
 {
 	//-- on close we need to delete the frame object.
 	//-- once again we make sure that the member frame variable is set to zero before we delete it
@@ -128,7 +128,7 @@ void TutorialEditor::close ()
 }
 
 //-----------------------------------------------------------------------------------
-void TutorialEditor::valueChanged (CControl* pControl)
+void ChuckDelayEditor::valueChanged (CControl* pControl)
 {
 	//-- valueChanged is called whenever the user changes one of the controls in the User Interface (UI)
 
@@ -138,7 +138,7 @@ void TutorialEditor::valueChanged (CControl* pControl)
 }
 
 //-----------------------------------------------------------------------------------
-void TutorialEditor::setParameter (VstInt32 index, float value)
+void ChuckDelayEditor::setParameter (VstInt32 index, float value)
 {
 	//-- setParameter is called when the host automates one of the effects parameter.
 

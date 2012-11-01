@@ -18,7 +18,7 @@ void DelayBuffer::clearBuffer ()
 //================================================================//
 
 //----------------------------------------------------------------//
-// Advance the delay one sample, get delayed sample
+// Advance one sample, return delayed sample
 float DelayBuffer::advance ( float value )
 {
 	mBuffer [ mWritePosition++ ] = value;

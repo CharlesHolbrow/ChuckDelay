@@ -36,7 +36,7 @@
 
 #include "../public.sdk/source/vst2.x/audioeffectx.h"
 
-#include "TutorialParameters.h"
+#include "Parameters.h"
 #include "DelayBuffer.h"
 
 class TutorialVST2Effect : public AudioEffectX

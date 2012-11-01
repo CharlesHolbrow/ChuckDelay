@@ -16,12 +16,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\Tutorial2Editor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\TutorialEditor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\TutorialVST2Effect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -46,14 +40,11 @@
     <ClCompile Include="..\vstgui\vstcontrols.cpp">
       <Filter>Source Files\vstgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\ChuckDelayEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\TutorialEditor.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\TutorialParameters.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\TutorialVST2Effect.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -86,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="..\vstgui\vstcontrols.h">
       <Filter>Source Files\vstgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ChuckDelayEditor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Parameters.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

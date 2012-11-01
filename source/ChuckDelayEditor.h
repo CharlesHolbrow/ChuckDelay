@@ -31,16 +31,16 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //-----------------------------------------------------------------------------
 
-#ifndef __TutorialEditor__
-#define __TutorialEditor__
+#ifndef __ChuckDelayEditor__
+#define __ChuckDelayEditor__
 
 #include "../vstgui/aeffguieditor.h"
-#include "TutorialParameters.h"
+#include "Parameters.h"
 
-class TutorialEditor : public AEffGUIEditor, public CControlListener
+class ChuckDelayEditor : public AEffGUIEditor, public CControlListener
 {
 public:
-	TutorialEditor (void*);
+	ChuckDelayEditor (void*);
 	
 	// from AEffGUIEditor
 	bool open (void* ptr);
@@ -54,5 +54,5 @@ protected:
 	CControl* controls[kNumParameters];
 };
 
-#endif // __TutorialEditor__
+#endif // __ChuckDelayEditor__
 
