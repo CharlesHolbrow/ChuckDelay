@@ -38,7 +38,8 @@ enum TutorialParameters
 {
 	kLeftVolumeParameter,
 	kRightVolumeParameter,
-	kDelayTimeParameter,
+	kLeftDelayTimeParameter,
+	kRightDelayTimeParameter,
 	
 	kNumParameters
 };

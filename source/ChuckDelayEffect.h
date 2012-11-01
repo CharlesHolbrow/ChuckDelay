@@ -53,7 +53,8 @@ protected:
 	float parameters[kNumParameters];
 
 private:
-	DelayBuffer buffer;
+	DelayBuffer buffer0;
+	DelayBuffer buffer1;
 };
 
 #endif // __ChuckDelayEffect__

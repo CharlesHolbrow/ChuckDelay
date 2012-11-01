@@ -123,11 +123,15 @@ bool ChuckDelayEditor::open (void* ptr)
 
 	newFrame->addView (rightVolumeSlider);
 
-	//-- creating another knob,
-	CRect knobRect (0, 0, knobBackground->getWidth (), knobBackground->getHeight ());
-	knobRect.offset (knobBackground->getWidth () + 10, 5);
-	CKnob* knob3 = new MyKnob (knobRect, this, kDelayTimeParameter, knobBackground, knobHandle, knobHandleHighlight);
-	newFrame->addView (knob3);
+	//-- creating delay time knobs,
+	CRect knobRect (0, 0, knobBackground->getWidth (), knobXY);
+	knobRect.offset (gap, gap);
+	CKnob* leftDelayKnob = new MyKnob (knobRect, this, kLeftDelayTimeParameter, knobBackground, knobHandle, knobHandleHighlight);
+	newFrame->addView (leftDelayKnob);
+
+	knobRect.offset (gap + knobXY, 0);
+	CKnob* rightDelayKnob = new MyKnob (knobRect, this, kRightDelayTimeParameter, knobBackground, knobHandle, knobHandleHighlight);
+	newFrame->addView (rightDelayKnob);
 
 	//-- forget the bitmaps
 	knobBackground->forget ();
@@ -140,7 +144,8 @@ bool ChuckDelayEditor::open (void* ptr)
 	//-- remember our controls so that we can sync them with the state of the effect
 	controls[kLeftVolumeParameter] = leftVolumeSlider;
 	controls[kRightVolumeParameter] = rightVolumeSlider;
-	controls[kDelayTimeParameter] = knob3;
+	controls[kLeftDelayTimeParameter] = leftDelayKnob;
+	controls[kRightDelayTimeParameter] = rightDelayKnob;
 
 	//-- set the member frame to our frame
 	frame = newFrame;

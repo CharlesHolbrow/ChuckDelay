@@ -12,7 +12,7 @@ class DelayBuffer
 private:
 
 	enum { 
-		bufferSize = 44100 
+		bufferSize = 96000 
 	};
 
 	vector<float>	mBuffer;
