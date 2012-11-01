@@ -5,10 +5,12 @@
 // Bitmap
 //
 
-KnobBackground.png      DATA  DISCARDABLE     "../resource/KnobBackground.png"
-KnobHandle.png          DATA  DISCARDABLE     "../resource/KnobHandle.png"
-KnobHandleHighlight.png DATA  DISCARDABLE     "../resource/KnobHandleHighlight.png"
-
+KnobBackground.png        DATA  DISCARDABLE     "../resource/KnobBackground.png"
+KnobHandle.png            DATA  DISCARDABLE     "../resource/KnobHandle.png"
+KnobHandleHighlight.png   DATA  DISCARDABLE     "../resource/KnobHandleHighlight.png"
+SliderBackground.png      DATA  DISCARDABLE     "../resource/SliderBackground.png"
+SliderHandle.png          DATA  DISCARDABLE     "../resource/SliderHandle.png"
+SliderHandleHighlight.png DATA  DISCARDABLE     "../resource/SliderHandleHighlight.png"
 
 #ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////

@@ -79,32 +79,67 @@ bool ChuckDelayEditor::open (void* ptr)
 	newFrame->setBackgroundColor (kBlackCColor);
 
 	//-- load some bitmaps we need
-	CBitmap* background = new CBitmap ("KnobBackground.png");
-	CBitmap* handle = new CBitmap ("KnobHandle.png");
-	CBitmap* handleHighlight = new CBitmap ("KnobHandleHighlight.png");
+	CBitmap* knobBackground = new CBitmap ("KnobBackground.png");
+	CBitmap* knobHandle = new CBitmap ("KnobHandle.png");
+	CBitmap* knobHandleHighlight = new CBitmap ("KnobHandleHighlight.png");
 
-	//-- creating a knob and adding it to the frame
-	CRect r (0, 0, background->getWidth (), background->getHeight ());
-	CKnob* knob1 = new MyKnob (r, this, kLeftVolumeParameter, background, handle, handleHighlight);
-	newFrame->addView (knob1);
+	CBitmap* sliderBackground = new CBitmap ("SliderBackground.png");
+	CBitmap* sliderHandle = new CBitmap ("SliderHandle.png");
+	CBitmap* sliderHandleHighlight = new CBitmap ("SliderHandleHighlight.png");
 
-	//-- creating another knob, we are offsetting the rect, so that the knob is next to the previous knob
-	r.offset (background->getWidth () + 5, 0);
-	CKnob* knob2 = new MyKnob (r, this, kRightVolumeParameter, background, handle, handleHighlight);
-	newFrame->addView (knob2);
+	int knobXY = knobBackground->getWidth (); // knob is a square, 
+	int sliderY = sliderBackground->getHeight(); // sliderX == knobXY
+	static int gap = 5;
+
+	//-- Left Volume Fader
+	CRect sliderRectLeft (0, 0, knobXY, sliderY);
+	sliderRectLeft.offset (gap, 2*gap + knobXY);
+	
+	CSlider* leftVolumeSlider = new CSlider (
+		sliderRectLeft, 
+		this, 
+		kLeftVolumeParameter, 
+		sliderRectLeft.top, // iminpos - position of TOP of the handle's range, relative to upper left corner of the frame
+		sliderRectLeft.bottom - sliderHandle->getHeight(), // imaxpos - position of BOTTOM of the handle's range relative to the upper left corner of the frame
+		sliderHandle, 
+		sliderBackground, 
+		VSTGUI::CPoint(0, 0), 
+		kVertical|kBottom);
+
+	newFrame->addView (leftVolumeSlider);
+
+	//-- Right Volume Fader
+	CRect sliderRectRight (0, 0, knobXY, sliderY);
+	sliderRectRight.offset (2*gap + knobXY, 2*gap + knobXY);
+
+	CVerticalSlider* rightVolumeSlider = new CVerticalSlider (
+		sliderRectRight, 
+		this, 
+		kRightVolumeParameter, 
+		sliderRectRight.top, 
+		sliderRectRight.bottom - sliderHandle->getHeight(), 
+		sliderHandle, 
+		sliderBackground); 
+
+	newFrame->addView (rightVolumeSlider);
 
 	//-- creating another knob,
-	r.offset (background->getWidth () + 5, 0);
-	CKnob* knob3 = new MyKnob (r, this, kDelayTimeParameter, background, handle, handleHighlight);
+	CRect knobRect (0, 0, knobBackground->getWidth (), knobBackground->getHeight ());
+	knobRect.offset (knobBackground->getWidth () + 10, 5);
+	CKnob* knob3 = new MyKnob (knobRect, this, kDelayTimeParameter, knobBackground, knobHandle, knobHandleHighlight);
 	newFrame->addView (knob3);
 
 	//-- forget the bitmaps
-	background->forget ();
-	handle->forget ();
+	knobBackground->forget ();
+	knobHandle->forget ();
+	knobHandleHighlight->forget();
+	sliderBackground->forget ();
+	sliderHandle->forget ();
+	sliderHandleHighlight->forget();
 
 	//-- remember our controls so that we can sync them with the state of the effect
-	controls[kLeftVolumeParameter] = knob1;
-	controls[kRightVolumeParameter] = knob2;
+	controls[kLeftVolumeParameter] = leftVolumeSlider;
+	controls[kRightVolumeParameter] = rightVolumeSlider;
 	controls[kDelayTimeParameter] = knob3;
 
 	//-- set the member frame to our frame
