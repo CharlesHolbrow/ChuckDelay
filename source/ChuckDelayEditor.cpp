@@ -68,22 +68,28 @@ ChuckDelayEditor::ChuckDelayEditor (void* ptr)
 //-----------------------------------------------------------------------------------
 bool ChuckDelayEditor::open (void* ptr)
 {
-	//-- load some bitmaps 
 	CBitmap* knobBackground = new CBitmap ("KnobBackground.png");
 	CBitmap* knobHandle = new CBitmap ("KnobHandle.png");
 	CBitmap* knobHandleHighlight = new CBitmap ("KnobHandleHighlight.png");
 
 	CBitmap* sliderBackground = new CBitmap ("SliderBackground.png");
 	CBitmap* sliderHandle = new CBitmap ("SliderHandle.png");
-	CBitmap* sliderHandleHighlight = new CBitmap ("SliderHandleHighlight.png");
+	CBitmap* sliderHandleHighlight = new CBitmap ("SliderHandleHighlight.png"); //TODO: implement highlights for slider?
 
+	// some handy ints for UI arrangement 
 	int knobXY = knobBackground->getWidth (); // knob is a square, 
 	int sliderY = sliderBackground->getHeight(); // sliderX == knobXY
 	static int gap = 8;
 
 	CRect frameSize (0, 0, gap*3 + knobXY*2, gap*3 + knobXY + sliderY);
-	CFrame* newFrame = new CFrame (frameSize, ptr, this);
-	newFrame->setBackgroundColor (kBlackCColor);
+	CFrame* mainFrame = new CFrame (frameSize, ptr, this);
+	mainFrame->setBackgroundColor (kBlackCColor);
+
+	//-- Some hosts use this struct to get the window dimensions
+	rect.left   = (short)0; 
+	rect.top    = (short)0; 
+	rect.right  = (short)mainFrame->getWidth (); 
+	rect.bottom = (short)mainFrame->getHeight (); 
 
 	//-- Left Volume Fader
 	CRect sliderRectLeft (0, 0, knobXY, sliderY);
@@ -100,7 +106,7 @@ bool ChuckDelayEditor::open (void* ptr)
 		VSTGUI::CPoint(0, 0), 
 		kVertical|kBottom);
 
-	newFrame->addView (leftVolumeSlider);
+	mainFrame->addView (leftVolumeSlider);
 
 	//-- Right Volume Fader
 	CRect sliderRectRight (0, 0, knobXY, sliderY);
@@ -115,17 +121,17 @@ bool ChuckDelayEditor::open (void* ptr)
 		sliderHandle, 
 		sliderBackground); 
 
-	newFrame->addView (rightVolumeSlider);
+	mainFrame->addView (rightVolumeSlider);
 
 	//-- creating delay time knobs,
 	CRect knobRect (0, 0, knobBackground->getWidth (), knobXY);
 	knobRect.offset (gap, gap);
 	CKnob* leftDelayKnob = new MyKnob (knobRect, this, kLeftDelayTimeParameter, knobBackground, knobHandle, knobHandleHighlight);
-	newFrame->addView (leftDelayKnob);
+	mainFrame->addView (leftDelayKnob);
 
 	knobRect.offset (gap + knobXY, 0);
 	CKnob* rightDelayKnob = new MyKnob (knobRect, this, kRightDelayTimeParameter, knobBackground, knobHandle, knobHandleHighlight);
-	newFrame->addView (rightDelayKnob);
+	mainFrame->addView (rightDelayKnob);
 
 	//-- forget the bitmaps
 	knobBackground->forget ();
@@ -142,7 +148,7 @@ bool ChuckDelayEditor::open (void* ptr)
 	controls[kRightDelayTimeParameter] = rightDelayKnob;
 
 	//-- set the member frame to our frame
-	frame = newFrame;
+	frame = mainFrame;
 
 	//-- sync parameters
 	for (int i = 0; i < kNumParameters; i++)
