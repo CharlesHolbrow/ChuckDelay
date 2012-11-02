@@ -25,7 +25,7 @@ private:
 
 public:
 	 //----------------------------------------------------------------//
-	float			advance				( float value );
+	float			advance				( float value, float feedback = 0.0f );
 					DelayBuffer			( void );
 	virtual			~DelayBuffer		( void );
 	int				getBufferSize		();

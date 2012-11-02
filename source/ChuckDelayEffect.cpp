@@ -50,10 +50,10 @@ buffer1()
 	setNumInputs (2);
 	setNumOutputs (2);
 
-	parameters[kLeftVolumeParameter] = 1.f;
-	parameters[kRightVolumeParameter] = 1.f;
-	parameters[kLeftDelayTimeParameter] = 1.f;
-	parameters[kRightDelayTimeParameter] = 1.f;
+	parameters[kLeftVolumeParameter] = 0.4f;
+	parameters[kRightVolumeParameter] = 0.4f;
+	parameters[kLeftDelayTimeParameter] = 0.f;
+	parameters[kRightDelayTimeParameter] = 0.f;
 
 	extern AEffGUIEditor* createEditor (AudioEffectX*);
 	setEditor (createEditor (this));
@@ -84,8 +84,16 @@ void ChuckDelayEffect::processReplacing (float** inputs, float** outputs, VstInt
 {
 	for (VstInt32 i = 0; i < sampleFrames; i++)
 	{
-		float delayedSample0 = buffer0.advance ( inputs[0][i] );
-		float delayedSample1 = buffer1.advance ( inputs[1][i] );
+
+		float feedback0 = parameters[kLeftVolumeParameter];
+		float feedback1 = parameters[kRightVolumeParameter];
+
+		// turn off feedback when delay time is 0;
+		if ( parameters[kLeftDelayTimeParameter] < 0.0001f ) feedback0 = 0;
+		if ( parameters[kRightDelayTimeParameter] < 0.0001f ) feedback1 = 0;
+
+		float delayedSample0 = buffer0.advance ( inputs[0][i], feedback0 );
+		float delayedSample1 = buffer1.advance ( inputs[1][i], feedback1 );
 
 		buffer0.setDelay( 
 			(int)( (float)buffer0.getBufferSize() * (float)parameters[kLeftDelayTimeParameter] ) 
@@ -95,8 +103,8 @@ void ChuckDelayEffect::processReplacing (float** inputs, float** outputs, VstInt
 			(int)( (float)buffer1.getBufferSize() * (float)parameters[kRightDelayTimeParameter] ) 
 		);
 
-		outputs[0][i] = delayedSample0 * parameters[kLeftVolumeParameter];
-		outputs[1][i] = delayedSample1 * parameters[kRightVolumeParameter];
+		outputs[0][i] = delayedSample0 ;
+		outputs[1][i] = delayedSample1 ;
 	}
 }
 

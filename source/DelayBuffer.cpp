@@ -19,9 +19,20 @@ void DelayBuffer::clearBuffer ()
 
 //----------------------------------------------------------------//
 // Advance one sample, return delayed sample
-float DelayBuffer::advance ( float value )
+float DelayBuffer::advance ( float value, float feedback )
 {
-	mBuffer [ mWritePosition++ ] = value;
+	if ( abs(feedback) > 1.0f ) feedback = 0; //just in case
+
+	// the new sample including feedback
+	float newSample = value + feedback * mBuffer [ mReadPosition ];
+
+	// what's the correct place to do this?
+	if ( newSample > 1.0f ) newSample = 1.0f;
+	if ( newSample < -1.0f ) newSample = -1.0f;
+
+	// overwrite the value at write position, then increment 
+	mBuffer [ mWritePosition++ ] = newSample;
+
 	float delayedSample = mBuffer [ mReadPosition++ ];
 
 	if ( mWritePosition >= bufferSize )
@@ -41,7 +52,7 @@ mWritePosition	( 0 )
 {
 	
 	clearBuffer ();
-	setDelay ( 40000 );
+	setDelay ( 0 );
 }
 
 //----------------------------------------------------------------//
