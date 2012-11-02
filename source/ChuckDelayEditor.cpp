@@ -31,11 +31,6 @@
 // OF THE POSSIBILITY OF SUCH DAMAGE.
 //-----------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------------
-//-- This is an advanced version of the first tutorial. It shows you how to inherite
-//-- from CKnob and alter it's drawing by changing the handle bitmap if the mouse is
-//-- over the control or if the knob is being tracked.
-//-----------------------------------------------------------------------------------
 
 #include "ChuckDelayEditor.h"
 
@@ -73,12 +68,7 @@ ChuckDelayEditor::ChuckDelayEditor (void* ptr)
 //-----------------------------------------------------------------------------------
 bool ChuckDelayEditor::open (void* ptr)
 {
-	//-- first we create the frame with a size of 300, 300 and set the background to white
-	CRect frameSize (0, 0, 300, 300);
-	CFrame* newFrame = new CFrame (frameSize, ptr, this);
-	newFrame->setBackgroundColor (kBlackCColor);
-
-	//-- load some bitmaps we need
+	//-- load some bitmaps 
 	CBitmap* knobBackground = new CBitmap ("KnobBackground.png");
 	CBitmap* knobHandle = new CBitmap ("KnobHandle.png");
 	CBitmap* knobHandleHighlight = new CBitmap ("KnobHandleHighlight.png");
@@ -89,7 +79,11 @@ bool ChuckDelayEditor::open (void* ptr)
 
 	int knobXY = knobBackground->getWidth (); // knob is a square, 
 	int sliderY = sliderBackground->getHeight(); // sliderX == knobXY
-	static int gap = 5;
+	static int gap = 8;
+
+	CRect frameSize (0, 0, gap*3 + knobXY*2, gap*3 + knobXY + sliderY);
+	CFrame* newFrame = new CFrame (frameSize, ptr, this);
+	newFrame->setBackgroundColor (kBlackCColor);
 
 	//-- Left Volume Fader
 	CRect sliderRectLeft (0, 0, knobXY, sliderY);
